@@ -14,7 +14,7 @@ class User(AbstractUser):
         # Provide unique related names for user_groups and user_permissions fields
         # to avoid clash with the default User model's groups and user_permissions fields
         # Ensure these related names are unique and not clashing with other fields in your models
-        db_table = 'custom_user'
-        permissions = (("can_vote", "Can vote in polls"),)
+        db_table = 'Users'
+        permissions = (("can_view", "Can view in posts"),)
         default_permissions = ['view', 'add', 'change', 'delete']
         swappable = 'AUTH_USER_MODEL'
