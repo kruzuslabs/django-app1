@@ -17,10 +17,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls.conf import include, path
 
+from home.views import home
+import users.views
 from tasks import views
 
 urlpatterns = [
+    path('', home, name="home"),
     path('admin/', admin.site.urls),
     path('tasks/', views.index, name='tasks'),
-    path('tasks/new', views.create_task, name='create_task')
+    path('tasks/new', views.create_task, name='create_task'),
+    path('accounts/', include('allauth.urls')),
+    path('accounts/profile/', users.views.userIndex, name='profile')
+
 ]

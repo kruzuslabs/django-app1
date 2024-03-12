@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 
+from django.contrib import staticfiles
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -24,7 +26,7 @@ SECRET_KEY = 'django-insecure-*vl*m@reok8+ev+ck^z6wv+0&vitrvvuel8#okd7y2!5g55n@^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']
 
 # Application definition
 
@@ -37,6 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "users.apps.UsersConfig",
     "tasks.apps.TasksConfig",
+    'home.apps.HomeConfig',
+    'allauth',
+    'allauth.account',
+    'crispy_forms',
+
 ]
 
 MIDDLEWARE = [
@@ -47,14 +54,18 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
+
+
+
 
 ROOT_URLCONF = 'djangoProject1.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'tasks/templates']
+        'DIRS': [BASE_DIR / 'templates']
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -84,6 +95,10 @@ DATABASES = {
     }
 }
 
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
@@ -102,6 +117,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
@@ -117,6 +137,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+STATIC_ROOT = 'staticfiles/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

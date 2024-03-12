@@ -16,6 +16,12 @@ class Task(models.Model):
 
     class Meta:
         db_table = 'Tasks'
+        indexes = [
+            models.Index(fields=['title']),
+            models.Index(fields=['description']),
+            models.Index(fields=['created_at']),  # Create an index on the 'created_at' field
+            # You can add more indexes as needed
+        ]
 
 
 

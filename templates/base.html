@@ -1,34 +1,47 @@
-<!-- templates/base.html -->
+<!-- base.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Task Manager{% endblock %}</title>
-    <!-- Add your CSS and other head content here -->
+    <title>Your Website Title</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <header>
-        <!-- Header content -->
-        <h1>Welcome to the Task Manager</h1>
-        <nav>
-            <!-- Menu links -->
-            <ul>
-                <li><a href="{% url 'tasks:task_list' %}">Tasks</a></li>
-                <li><a href="{% url 'users:user_profile' %}">Profile</a></li>
-                <!-- Add more menu links as needed -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+   <span class="navbar-brand" href="#">Hello  {{ user.username|capfirst|default:"Anonymous" }}</span>
+
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/accounts/profile/">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/tasks/new/">Create Task</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/accounts/logout/">Logout</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/accounts/login/">Login</a>
+                </li>
+                {% endif %}
+                <!-- Add more menu items as needed -->
             </ul>
-        </nav>
-    </header>
-    
-    <div class="content">
-        {% block content %}{% endblock %}
+        </div>
+    </nav>
+    <div class="container">
+        {% block content %}
+        {% endblock %}
     </div>
-    
-    <footer>
-        <!-- Footer content -->
-    </footer>
-    
-    <!-- Add your JavaScript and other footer content here -->
+    <!-- Include Bootstrap JS (optional) -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

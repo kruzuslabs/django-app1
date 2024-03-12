@@ -5,6 +5,8 @@ from django.core.paginator import Paginator
 from tasks.models import Task
 import time
 
+from django.contrib.auth.decorators import login_required
+
 
 def format_time(elapsed):
     if elapsed < 1:
@@ -30,6 +32,7 @@ def index(request):
     formatted_time = format_time(elapsed_time)
     return render(request, "index.html", {"page_obj": page_obj, "tasks": tasks, "elapsed_time": formatted_time,
                                           "total_tasks_count": total_tasks_count})
+
 
 def create_task(request):
     if request.method == 'POST':
